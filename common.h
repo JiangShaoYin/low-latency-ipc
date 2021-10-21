@@ -133,7 +133,6 @@ Message *recv() {
 const Message *next_message();
 
 
-
 #include <thread> 
 class ThreadPool {
 private:
