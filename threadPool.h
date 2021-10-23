@@ -43,9 +43,9 @@ public:
     que = new ShmQue(1111, capacity);
     pthread_cond_init(&cond, NULL);        //初始化条件变量（同步）
 
-    thread_pids = (pthread_t*)calloc(capacity, sizeof(pthread_t));
+    thread_pids = (pthread_t*)calloc(capacity + 1, sizeof(pthread_t));
     thread_func_ = func;
-    thread_num = capacity;
+    thread_num = capacity + 1; // 
     start = false;
   }
   void Start() {

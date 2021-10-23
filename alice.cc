@@ -20,57 +20,57 @@
 
 deque<pair<time_t, int>> generate() {
   deque<pair<time_t, int>> c = {
-      // // 间隔1s发送
-      // {1 * SECOND_TO_NANO, MESSAGE_SIZES[0]},
-      // {2 * SECOND_TO_NANO, MESSAGE_SIZES[1]},
-      // {3 * SECOND_TO_NANO, MESSAGE_SIZES[2]},
-      // {4 * SECOND_TO_NANO, MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO, MESSAGE_SIZES[4]},
-      // // 间隔100mss发送
-      // {5 * SECOND_TO_NANO + 100 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.1s
-      // {5 * SECOND_TO_NANO + 200 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO + 300 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      // {5 * SECOND_TO_NANO + 400 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      // {5 * SECOND_TO_NANO + 500 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.5
-      // // 间隔10ms发送
-      // {5 * SECOND_TO_NANO + 510 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.51
-      // {5 * SECOND_TO_NANO + 520 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      // {5 * SECOND_TO_NANO + 530 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      // {5 * SECOND_TO_NANO + 540 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO + 550 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.55
-      // // 间隔1ms发送
-      // {5 * SECOND_TO_NANO + 551 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.551
-      // {5 * SECOND_TO_NANO + 552 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO + 553 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      // {5 * SECOND_TO_NANO + 554 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.555
-      // // 间隔100us发送
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 100 * MICRO_TO_NANO,       MESSAGE_SIZES[0]}, // 5.5551
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 200 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 300 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 400 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 500 * MICRO_TO_NANO,       MESSAGE_SIZES[4]}, // 5.5555
-      // // 间隔10us发送
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 510 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.55551
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 520 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 530 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 540 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 550 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.55555
-      // // 间隔1us发送
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
-      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
+      // 间隔1s发送
+      {1 * SECOND_TO_NANO, MESSAGE_SIZES[0]},
+      {2 * SECOND_TO_NANO, MESSAGE_SIZES[1]},
+      {3 * SECOND_TO_NANO, MESSAGE_SIZES[2]},
+      {4 * SECOND_TO_NANO, MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO, MESSAGE_SIZES[4]},
+      // 间隔100mss发送
+      {5 * SECOND_TO_NANO + 100 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.1s
+      {5 * SECOND_TO_NANO + 200 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO + 300 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      {5 * SECOND_TO_NANO + 400 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      {5 * SECOND_TO_NANO + 500 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.5
+      // 间隔10ms发送
+      {5 * SECOND_TO_NANO + 510 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.51
+      {5 * SECOND_TO_NANO + 520 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      {5 * SECOND_TO_NANO + 530 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      {5 * SECOND_TO_NANO + 540 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO + 550 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.55
+      // 间隔1ms发送
+      {5 * SECOND_TO_NANO + 551 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.551
+      {5 * SECOND_TO_NANO + 552 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO + 553 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      {5 * SECOND_TO_NANO + 554 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.555
+      // 间隔100us发送
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 100 * MICRO_TO_NANO,       MESSAGE_SIZES[0]}, // 5.5551
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 200 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 300 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 400 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 500 * MICRO_TO_NANO,       MESSAGE_SIZES[4]}, // 5.5555
+      // 间隔10us发送
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 510 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.55551
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 520 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 530 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 540 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 550 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.55555
+      // 间隔1us发送
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
+      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
 
 
 
 
-      {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
-      {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
-      {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
-      {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
-      {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
+      // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
+      // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
+      // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
+      // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
+      // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
   };
   int init_size = c.size();
   const int repeat = 0;  // 重复若干次
@@ -91,7 +91,7 @@ void record(const Message *m) {
   assert(m->checksum == crc32(m));
   time_t t = now();
   delays.push_back((t - m->t) / 2);  // 来回的时间差除2近似地取作单程延迟，注意每轮通信会有四次校验和的计算，这些耗时也必须包含进延迟中
-  cout << "delay.size()= " << delays.size() << endl;
+  cout << "thread ppid= " << getppid() << " delay.size()= " << delays.size() << endl;
 
 //   printf("%ld %ld %ld\n", m->t, t, (t - m->t) / 2);
   
@@ -106,23 +106,24 @@ void* coreActionAlice(void* p) {
 
     threadPool* thread_pool = (threadPool*)p;
     ShmQue* task_que = thread_pool->que;
-
+    auto pid = getppid();
     while (1) {
       pthread_mutex_lock(&task_que->mutex);
       pthread_cond_wait(&thread_pool->cond, &task_que->mutex); // wait !
-      MessageWithSpinloc* msg = task_que->popFront(); // 
-      int idx = calculateShmIdx(msg, task_que->shm_bufs);
-      cout << "1= " <<  idx << endl;
 
-      cout << "pop front task and send to bob, idx= " <<  idx << endl;
+      MessageWithSpinloc* msg = task_que->getFront(); // 
       
-      pthread_mutex_unlock(&task_que->mutex);
-      cout << "1= " <<  idx << endl;
       msg->setLockVal(1);
+      int idx = calculateShmIdx(msg, task_que->shm_bufs);
+      
+      cout << "thread ppid= " << pid << ", idx= " <<  idx << ", set= 1"; task_que->printQueStatus(); 
       while(msg->getLockVal() != 2) {}
-      cout << "receie from bob, idx= " << idx << endl;
+      cout << "thread ppid= " << pid << "  receie from bob, idx= " << idx; task_que->printQueStatus(); 
 
       record(msg->getMsg());
+      pthread_mutex_unlock(&task_que->mutex);
+
+      task_que->popFront();
     }
     return nullptr;
 }
@@ -160,14 +161,15 @@ MessageWithSpinloc *next_message() {
   auto c = test_cases.front();
   if (c.first > now()) return NULL; // 还没到发送时间， 
   
-  while(ThreadPool.que->isFull()) {}
+  while(ThreadPool.que->isFull()) {} 
+
   MessageWithSpinloc *msg_with_spinlock = ThreadPool.que->getTailNext(); // 8192
   Message *m = msg_with_spinlock->getMsg();
   // 构建消息头
   test_cases.pop_front();
   m->t = c.first;
   m->size = c.second;
-  cout << "m->size= " <<  m->size << endl;
+  cout << "    main: m->size= " <<  m->size << endl;
 
   // 随机生成消息体
   static unsigned int seed = 1;
@@ -197,7 +199,7 @@ int main() {
       pthread_mutex_lock(&ThreadPool.que->mutex);
       ThreadPool.que->addRear(1); // 队列size++;
       pthread_cond_signal(&ThreadPool.cond); 
-      cout << "call thread to  signal！！！！！！" << endl; // 阻塞住
+      cout << "    main: call thread to  signal！！！！！！"; ThreadPool.que->printQueStatus(); // 阻塞住
       pthread_mutex_unlock(&ThreadPool.que->mutex);
     } else {
       time_t dt = now() - test_cases.front().first;
