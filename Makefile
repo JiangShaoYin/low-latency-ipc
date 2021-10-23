@@ -5,8 +5,7 @@ TARGETS=alice bob
 
 all: ${TARGETS}
 
-%: %.cpp common.h
-	# ${CC} -g ${CFLAGS} $< -o $@ -lprofiler
+%: %.cc common.h
 	${CC} ${CFLAGS} $< -o $@ -pthread
 
 clean:

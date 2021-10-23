@@ -27,6 +27,10 @@
 using namespace std;
 /* --------------------------------------不得修改两条分割线之间的内容--------------------------------------
  */
+// #define _GNU_SOURCE
+// cpu_set_t mask;
+// CPU_ZERO(&mask);
+constexpr int THREAD_POOL_SIZE = 100;
 
 constexpr time_t MICRO_TO_NANO = 1000;
 constexpr time_t MILLI_TO_NANO = 1000000;
@@ -35,7 +39,7 @@ constexpr time_t SECOND_TO_NANO = 1000000000;
 // 获取当前Unix时间戳，单位为纳秒
 // 为方便处理，所有返回的时间戳减去了同一个基准时间
 inline time_t now() {
-  static time_t t0 = time(NULL);
+  static time_t t0 = time(NULL); // static变量，程序运行的基准时间
   static timespec t;
   clock_gettime(CLOCK_REALTIME, &t);
   return (t.tv_sec - t0) * SECOND_TO_NANO + t.tv_nsec;
@@ -44,7 +48,7 @@ inline time_t now() {
 constexpr size_t MESSAGE_SIZES[] = {32, 128, 512, 2048, 8192,};  // 所有可能的消息大小
 
 struct Message {
-  time_t t;
+  time_t t; // 
   size_t size;
   long checksum;
   char payload[0];  // Flexible Array Member
@@ -116,109 +120,3 @@ long crc32(const Message *message) {
   return long(~crc);
 }
 
-/* --------------------------------------不得修改两条分割线之间的内容--------------------------------------
- */
-
-
-ShareMem shm(1111), spinLock(2222);
-
-
-void send(const Message *message) {
- memcpy(shm.buf, message, message->size); 
-}
-Message *recv() {
-  return (Message*)shm.buf;
-}
-
-const Message *next_message();
-
-
-#include <thread> 
-class ThreadPool {
-private:
-
-};
-
-
-class CircularDeque {
-private:
-    int _circle_size;
-    int* _circle;
-    int _front;
-    int _rear;
-    int _capacity;
-public:
-    CircularDeque(int k):
-        _front(0),
-        _rear(0),
-        _capacity(k),
-        _circle_size(k + 1),
-        _circle(new int[_circle_size]) {}
-    
-    bool insertFront(int value) {
-        if (isFull()) return false;
-        _front = (_front + _capacity) % _circle_size;
-        _circle[_front] = value;
-        return true;
-    }
-    
-    bool insertLast(int value) {
-        if (isFull()) return false;
-        _circle[_rear] = value;
-        _rear = (_rear + 1) % _circle_size;
-        return true;
-    }
-    int getFront() {
-        if (!isEmpty()) return _circle[_front];
-        return -1;
-    }
-    
-    bool isEmpty() {
-        if (_front == _rear) return true;
-        return false;
-    }
-    
-    bool isFull() {
-        if ((_rear + 1) % _circle_size == _front) return true;
-        return false;
-    }
-};
-
-
-
-
-
-
-
-// typedef struct{
-// 	pthread_t* pthids; // 线程id
-// 	pthread_cond_t cond; // 
-// 	// SocketQueue que; // 文件描述符队列
-// 	int pthread_num;
-// 	p_func thread_func;
-// 	int start;
-// }ThreadPool, *pThreadPool;
-
-
-
-// void ThreadPoolInit(ThreadPool* thread_pool, pfunc pthread_func, int capacity) {
-//   thread_pool->pthids = (pthread_t*)calloc(thread_pool->pthread_num, sizeof(pthread_t));
-//   pthread_cond_init(&thread_pool->cond, NULL); // 初始化条件变量
-//   que_init(&thread_pool->que, capacity);    // 文件描述符队列
-//   thread_pool->thread_func = pthread_func;  // 注册线程函数pthread_func
-// }  // thread_pool->start已在main函数初始化
-
-
-// void ThreadPoolStart(ThreadPool* thread_pool) {
-//   if (thread_pool->start) return; 
-//   int i;
-//   for (i = 0; i < thread_pool->pthread_num; i++) 
-//     	pthread_create(&thread_pool->pthids[i], NULL, thread_pool->thread_func, thread_pool);
-//   thread_pool->start = true;
-// }
-
-// void que_init(SocketQueue* socket_que, int capacity) {
-// 	socket_que->que_capacity = capacity;
-// 	socket_que->que_size = 0;
-// 	pthread_mutex_init(&socket_que->mutex_, NULL); // 初始化锁
-// }
