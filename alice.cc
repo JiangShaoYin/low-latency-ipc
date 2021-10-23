@@ -3,6 +3,9 @@
 #include "threadPool.h"
 #include "lock/mtx.h"
 #include <malloc.h>
+#include <mutex>
+
+mutex mtx;
 
 
 
@@ -26,42 +29,42 @@ deque<pair<time_t, int>> generate() {
       {3 * SECOND_TO_NANO, MESSAGE_SIZES[2]},
       {4 * SECOND_TO_NANO, MESSAGE_SIZES[3]},
       {5 * SECOND_TO_NANO, MESSAGE_SIZES[4]},
-      // 间隔100mss发送
-      {5 * SECOND_TO_NANO + 100 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.1s
-      {5 * SECOND_TO_NANO + 200 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      {5 * SECOND_TO_NANO + 300 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      {5 * SECOND_TO_NANO + 400 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      {5 * SECOND_TO_NANO + 500 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.5
-      // 间隔10ms发送
-      {5 * SECOND_TO_NANO + 510 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.51
-      {5 * SECOND_TO_NANO + 520 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      {5 * SECOND_TO_NANO + 530 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      {5 * SECOND_TO_NANO + 540 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      {5 * SECOND_TO_NANO + 550 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.55
-      // 间隔1ms发送
-      {5 * SECOND_TO_NANO + 551 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.551
-      {5 * SECOND_TO_NANO + 552 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
-      {5 * SECOND_TO_NANO + 553 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
-      {5 * SECOND_TO_NANO + 554 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.555
-      // 间隔100us发送
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 100 * MICRO_TO_NANO,       MESSAGE_SIZES[0]}, // 5.5551
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 200 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 300 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 400 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 500 * MICRO_TO_NANO,       MESSAGE_SIZES[4]}, // 5.5555
-      // 间隔10us发送
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 510 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.55551
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 520 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 530 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 540 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 550 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.55555
-      // 间隔1us发送
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
-      {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
+      // // 间隔100mss发送
+      // {5 * SECOND_TO_NANO + 100 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.1s
+      // {5 * SECOND_TO_NANO + 200 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      // {5 * SECOND_TO_NANO + 300 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      // {5 * SECOND_TO_NANO + 400 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      // {5 * SECOND_TO_NANO + 500 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.5
+      // // 间隔10ms发送
+      // {5 * SECOND_TO_NANO + 510 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.51
+      // {5 * SECOND_TO_NANO + 520 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      // {5 * SECOND_TO_NANO + 530 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      // {5 * SECOND_TO_NANO + 540 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      // {5 * SECOND_TO_NANO + 550 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.55
+      // // 间隔1ms发送
+      // {5 * SECOND_TO_NANO + 551 * MILLI_TO_NANO, MESSAGE_SIZES[4]}, // 5.551
+      // {5 * SECOND_TO_NANO + 552 * MILLI_TO_NANO, MESSAGE_SIZES[3]},
+      // {5 * SECOND_TO_NANO + 553 * MILLI_TO_NANO, MESSAGE_SIZES[2]},
+      // {5 * SECOND_TO_NANO + 554 * MILLI_TO_NANO, MESSAGE_SIZES[1]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO, MESSAGE_SIZES[0]}, // 5.555
+      // // 间隔100us发送
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 100 * MICRO_TO_NANO,       MESSAGE_SIZES[0]}, // 5.5551
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 200 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 300 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 400 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 500 * MICRO_TO_NANO,       MESSAGE_SIZES[4]}, // 5.5555
+      // // 间隔10us发送
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 510 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.55551
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 520 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 530 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 540 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 550 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.55555
+      // // 间隔1us发送
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 551 * MICRO_TO_NANO,       MESSAGE_SIZES[0]},//  5.555 551
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 552 * MICRO_TO_NANO,       MESSAGE_SIZES[1]},//  5.555 552
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 553 * MICRO_TO_NANO,       MESSAGE_SIZES[2]},//  5.555 553
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 554 * MICRO_TO_NANO,       MESSAGE_SIZES[3]},//  5.555 554
+      // {5 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
 
 
 
@@ -73,8 +76,7 @@ deque<pair<time_t, int>> generate() {
       // {1 * SECOND_TO_NANO + 555 * MILLI_TO_NANO + 555 * MICRO_TO_NANO,       MESSAGE_SIZES[4]},//  5.555 555
   };
   int init_size = c.size();
-  const int repeat = 0;  // 重复若干次
-  for (int i = 1; i <= repeat; ++i)
+  for (int i = 1; i <= REPEAT_TIME; ++i)
     for (int j = 0; j < init_size; ++j)
       c.push_back(make_pair(c[j].first + 6 * SECOND_TO_NANO * i, c[j].second));
   // 检查时间递增
@@ -91,14 +93,16 @@ void record(const Message *m) {
   assert(m->checksum == crc32(m));
   time_t t = now();
   delays.push_back((t - m->t) / 2);  // 来回的时间差除2近似地取作单程延迟，注意每轮通信会有四次校验和的计算，这些耗时也必须包含进延迟中
-  cout << "thread ppid= " << getppid() << " delay.size()= " << delays.size() << endl;
+  // cout << "thread ppid= " << getppid() << " delay.size()= " << delays.size() << endl;
 
 //   printf("%ld %ld %ld\n", m->t, t, (t - m->t) / 2);
   
   static set<time_t> ts;
 
   assert(ts.find(m->t) == ts.end());  // 每个时间戳对应的消息只应被记录一次
+  // mtx.lock();
   ts.insert(m->t);
+  // mtx.unlock();
   for (auto c : test_cases) assert(c.first != m->t);  // 被记录的消息必须是已经被取出的测试数据
 }
 
@@ -106,30 +110,29 @@ void* coreActionAlice(void* p) {
 
     threadPool* thread_pool = (threadPool*)p;
     ShmQue* task_que = thread_pool->que;
-    auto pid = getppid();
+    // auto pid = getppid();
     while (1) {
       pthread_mutex_lock(&task_que->mutex);
       pthread_cond_wait(&thread_pool->cond, &task_que->mutex); // wait !
 
       MessageWithSpinloc* msg = task_que->getFront(); // 
-      
-      msg->setLockVal(1);
-      int idx = calculateShmIdx(msg, task_que->shm_bufs);
-      
-      cout << "thread ppid= " << pid << ", idx= " <<  idx << ", set= 1"; task_que->printQueStatus(); 
-      while(msg->getLockVal() != 2) {}
-      cout << "thread ppid= " << pid << "  receie from bob, idx= " << idx; task_que->printQueStatus(); 
-
-      record(msg->getMsg());
+      task_que->popFront();
       pthread_mutex_unlock(&task_que->mutex);
 
-      task_que->popFront();
+      msg->setLockVal(1);
+      // int idx = calculateShmIdx(msg, task_que->shm_bufs);
+      // cout << "thread ppid= " << pid << ", idx= " <<  idx << ", set= 1"; task_que->printQueStatus(); 
+      while(msg->getLockVal() != 2) {}
+      // cout << "thread ppid= " << pid << "  receie from bob, idx= " << idx; task_que->printQueStatus(); 
+
+      record(msg->getMsg());
+      
     }
     return nullptr;
 }
 
 
-threadPool ThreadPool(THREAD_POOL_SIZE, coreActionAlice);
+threadPool ThreadPool(SHM_CAPACITY, coreActionAlice);
 
 
 
@@ -161,15 +164,19 @@ MessageWithSpinloc *next_message() {
   auto c = test_cases.front();
   if (c.first > now()) return NULL; // 还没到发送时间， 
   
-  while(ThreadPool.que->isFull()) {} 
 
-  MessageWithSpinloc *msg_with_spinlock = ThreadPool.que->getTailNext(); // 8192
+
+  while(ThreadPool.que->isFull()) {} 
+  MessageWithSpinloc *msg_with_spinlock = ThreadPool.que->getEnd(); // 8192
   Message *m = msg_with_spinlock->getMsg();
+
+
+
   // 构建消息头
   test_cases.pop_front();
   m->t = c.first;
   m->size = c.second;
-  cout << "    main: m->size= " <<  m->size << endl;
+  // cout << "    main: m->size= " <<  m->size << endl;
 
   // 随机生成消息体
   static unsigned int seed = 1;
@@ -196,11 +203,11 @@ int main() {
   while (true) {
     m1 = next_message(); 
     if (m1) {
-      pthread_mutex_lock(&ThreadPool.que->mutex);
-      ThreadPool.que->addRear(1); // 队列size++;
+      // pthread_mutex_lock(&ThreadPool.que->mutex);
+      ThreadPool.que->addRear(1); // rear forward 
       pthread_cond_signal(&ThreadPool.cond); 
-      cout << "    main: call thread to  signal！！！！！！"; ThreadPool.que->printQueStatus(); // 阻塞住
-      pthread_mutex_unlock(&ThreadPool.que->mutex);
+      // cout << "    main: call thread to  signal！！！！！！"; ThreadPool.que->printQueStatus(); // 阻塞住
+      // pthread_mutex_unlock(&ThreadPool.que->mutex);
     } else {
       time_t dt = now() - test_cases.front().first;
       // cout << now() << " " << test_cases.front().first << endl;

@@ -30,7 +30,8 @@ using namespace std;
 // #define _GNU_SOURCE
 // cpu_set_t mask;
 // CPU_ZERO(&mask);
-constexpr int THREAD_POOL_SIZE = 5;
+constexpr int SHM_CAPACITY = 1;
+constexpr int REPEAT_TIME = 0;
 
 constexpr time_t MICRO_TO_NANO = 1000;
 constexpr time_t MILLI_TO_NANO = 1000000;

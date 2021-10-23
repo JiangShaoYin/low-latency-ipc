@@ -12,19 +12,19 @@ void* coreActionBob(void* p) {
     auto pid = getppid();
     while (1) {   
       int idx = calculateShmIdx(msg, task_que->shm_bufs);
-      cout << "thread ppid= " << pid << ", wait to consume, shm id= " << idx; task_que->printQueStatus(); 
+      // cout << "thread ppid= " << pid << ", wait to consume, shm id= " << idx; task_que->printQueStatus(); 
       while(msg->getLockVal() != 1) {}
       Message* m = msg->getMsg();
       assert(m->checksum == crc32(m));
       
       m->payload[0]++;
       m->checksum = crc32(m);
-      cout << "thread ppid= " << pid << ", set 2"; task_que->printQueStatus(); 
+      // cout << "thread ppid= " << pid << ", set 2"; task_que->printQueStatus(); 
       msg->setLockVal(2);
     }
     return nullptr;
 }
-threadPool ThreadPool(THREAD_POOL_SIZE, coreActionBob);
+threadPool ThreadPool(SHM_CAPACITY, coreActionBob);
 
 // CPU_SET(1, &mask);
 int main() {

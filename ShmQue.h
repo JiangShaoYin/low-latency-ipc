@@ -51,7 +51,7 @@ public:
     void printQueStatus();
     MessageWithSpinloc* popFront();
     MessageWithSpinloc* getFront();
-    MessageWithSpinloc* getTailNext();
+    MessageWithSpinloc* getEnd();
     ~ShmQue();
     bool isEmpty();
     bool isFull();
@@ -66,34 +66,34 @@ private:
     int size_; // cap + 1
 };
 
-int calculateShmIdx(MessageWithSpinloc* msg, MessageWithSpinloc* base) {
+inline int calculateShmIdx(MessageWithSpinloc* msg, MessageWithSpinloc* base) {
     int idx = ((char*)msg - (char*)base)/ sizeof(MessageWithSpinloc);
     return idx;
 }
 
 
-MessageWithSpinloc::MessageWithSpinloc() : lock_val_(0) {}
+inline MessageWithSpinloc::MessageWithSpinloc() : lock_val_(0) {}
 void MessageWithSpinloc::addMsgByOne() {
     msg_[MsgOffset]++;
 }
-Message* MessageWithSpinloc::getMsg() {
+inline Message* MessageWithSpinloc::getMsg() {
     return (Message*)(msg_);
 }
-int MessageWithSpinloc::getLockVal() {
+inline int MessageWithSpinloc::getLockVal() {
     return lock_val_;
 }
-void MessageWithSpinloc::setLockVal(int val) {
+inline void MessageWithSpinloc::setLockVal(int val) {
     lock_val_ = val;
 }
 
 
-int* getIntPointer(void* buf, int offset) { // 获取offset byte位置上int指针
+inline int* getIntPointer(void* buf, int offset) { // 获取offset byte位置上int指针
  int* p = (int*)((char*)buf + offset);
  return &p[0];
 }
 
 
-ShmQue::ShmQue(int key, int cap):front_(0), rear_(0), size_(cap + 1) {
+inline ShmQue::ShmQue(int key, int cap):front_(0), rear_(0), size_(cap + 1) {
         int shm_buf_size = sizeof(MessageWithSpinloc) * size_;
         shmid_ = shmget(key, shm_buf_size, IPC_CREAT | 0600);
         void* total_buf = shmat(shmid_, NULL, 0);
@@ -103,26 +103,26 @@ ShmQue::ShmQue(int key, int cap):front_(0), rear_(0), size_(cap + 1) {
         shm_bufs = (MessageWithSpinloc *)total_buf;
     }
 
-bool ShmQue::addTask(Message* msg) {
+inline bool ShmQue::addTask(Message* msg) {
     if (isFull())  return false;
     rear_ = (rear_ + 1) % size_;
     return true;
 }
-bool ShmQue::pushBack(Message* msg) {
+inline bool ShmQue::pushBack(Message* msg) {
     if (isFull())  return false;
     memcpy(&shm_bufs[rear_], msg, msg->size); 
     rear_ = (rear_ + 1) % size_;
     return true;
 }
-bool ShmQue::addRear(int val) {
+inline bool ShmQue::addRear(int val) {
     if (isFull() ) return false;
     rear_ = (rear_ + val) % size_;
     return true;
 }
-void ShmQue::addSize(int val) {
+inline void ShmQue::addSize(int val) {
     size_ += 1;
 }
-MessageWithSpinloc* ShmQue::popFront() {
+inline MessageWithSpinloc* ShmQue::popFront() {
     // cout << "popFront 1" << endl;
     bool empty = isEmpty();
     // cout << "popFront 2" << "empty= " << empty << endl;
@@ -135,32 +135,32 @@ MessageWithSpinloc* ShmQue::popFront() {
     }
     return nullptr;
 }
-MessageWithSpinloc* ShmQue::getFront() {
+inline MessageWithSpinloc* ShmQue::getFront() {
     if (!isEmpty()) {
         return &shm_bufs[front_];
     }
     return nullptr;
 }
 
-MessageWithSpinloc* ShmQue::getTailNext() {
+inline MessageWithSpinloc* ShmQue::getEnd() {
     if (isFull() ) return nullptr;
     return &shm_bufs[rear_];;
 }
-void ShmQue::setQueFull() {
+inline void ShmQue::setQueFull() {
     rear_ = (front_ + size_ - 1) % size_;
 }
-void ShmQue::printQueStatus() {
-    cout << "       front= " << front_ << ", rear= " << rear_ << ", full= " << isFull() << endl;
+inline void ShmQue::printQueStatus() {
+    // cout << "       front= " << front_ << ", rear= " << rear_ << ", full= " << isFull() << endl;
 }
-ShmQue::~ShmQue() {
+inline ShmQue::~ShmQue() {
     shmctl(shmid_, IPC_RMID, NULL);
 }
-bool ShmQue::isEmpty() {
+inline bool ShmQue::isEmpty() {
     if (front_ == rear_) return true;
     return false;
 }
 
-bool ShmQue::isFull() {
+inline bool ShmQue::isFull() {
     if ((rear_ + 1) % size_ == front_) return true;
 
     return false;
